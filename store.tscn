@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwfstgt6pqpbr"]
+
+[ext_resource type="Script" uid="uid://h2woifeq1rln" path="res://store.gd" id="1_15h7w"]
+
+[node name="store" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_15h7w")
+
+[node name="back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 16.0
+offset_right = 1129.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 32
+text = "back"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 427.0
+offset_top = 293.0
+offset_right = 762.0
+offset_bottom = 360.0
+theme_override_font_sizes/font_size = 48
+text = "coming soon..."
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

@@ -1,0 +1,257 @@
+[gd_scene load_steps=11 format=3 uid="uid://b0umbsyf3ld1y"]
+
+[ext_resource type="Script" uid="uid://cgkcce1tcbylg" path="res://main.gd" id="1_h4qkr"]
+[ext_resource type="Texture2D" uid="uid://bckuvena2bqy7" path="res://assets/icons/coin_01d.png" id="2_tdyai"]
+[ext_resource type="Texture2D" uid="uid://c4urinqaka53n" path="res://assets/icons/gem_01d.png" id="3_wevdy"]
+[ext_resource type="Texture2D" uid="uid://dgt884v14f6db" path="res://Knight_player/Idle_KG_1.png" id="4_1bvp3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lquwl"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(0, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mycd"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(100, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_272bh"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(200, 0, 100, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vw27"]
+atlas = ExtResource("4_1bvp3")
+region = Rect2(300, 0, 100, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h2yge"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_lquwl")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_7mycd")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_272bh")
+}, {
+"duration": 0.8,
+"texture": SubResource("AtlasTexture_5vw27")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
+bg_color = Color(0, 0, 0, 0.584314)
+
+[node name="main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h4qkr")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.41, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+offset_left = 759.0
+offset_top = 227.0
+offset_right = 1064.0
+offset_bottom = 601.0
+theme_override_constants/separation = 20
+
+[node name="inv" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 42
+text = "inventory"
+
+[node name="bat" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 42
+text = "battle"
+
+[node name="gat" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 42
+text = "gacha"
+
+[node name="sta" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 16
+theme_override_font_sizes/font_size = 42
+text = "stats"
+
+[node name="coins" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 33.0
+offset_top = 26.0
+offset_right = 180.0
+offset_bottom = 65.0
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="coins"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="coins/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="coins"]
+position = Vector2(20, 17)
+scale = Vector2(4.05469, 4.29688)
+texture = ExtResource("2_tdyai")
+
+[node name="Button2" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 985.0
+offset_top = 22.0
+offset_right = 1122.0
+offset_bottom = 62.0
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Button2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Button2"]
+position = Vector2(110, 13)
+scale = Vector2(2.4375, 2.3125)
+texture = ExtResource("3_wevdy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(387, 376)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_h2yge")
+animation = &"idle"
+frame_progress = 0.37649
+
+[node name="save_hint" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1087.0
+offset_top = 608.0
+offset_right = 1134.0
+offset_bottom = 631.0
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 16
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="exit_window" type="ColorRect" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.521141, 0.521141, 0.521141, 0.521569)
+
+[node name="exit_conf" type="Panel" parent="exit_window"]
+layout_mode = 0
+offset_left = 318.0
+offset_top = 202.0
+offset_right = 821.0
+offset_bottom = 490.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bvp3")
+
+[node name="Label" type="Label" parent="exit_window/exit_conf"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Do you want to Exit?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="cancel" type="Button" parent="exit_window/exit_conf"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 205.0
+offset_right = 158.0
+offset_bottom = 258.0
+theme_override_font_sizes/font_size = 32
+text = "Cancel"
+
+[node name="exit" type="Button" parent="exit_window/exit_conf"]
+layout_mode = 0
+offset_left = 329.0
+offset_top = 202.0
+offset_right = 439.0
+offset_bottom = 255.0
+theme_override_font_sizes/font_size = 32
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/inv" to="." method="_on_inv_pressed"]
+[connection signal="pressed" from="VBoxContainer/bat" to="." method="_on_bat_pressed"]
+[connection signal="pressed" from="VBoxContainer/gat" to="." method="_on_gat_pressed"]
+[connection signal="pressed" from="VBoxContainer/sta" to="." method="_on_sta_pressed"]
+[connection signal="pressed" from="coins" to="." method="_on_coins_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="exit_window/exit_conf/cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="exit_window/exit_conf/exit" to="." method="_on_exit_pressed"]

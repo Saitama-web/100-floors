@@ -1,0 +1,139 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd72gr1h5woy8"]
+
+[ext_resource type="Script" uid="uid://hfokhvjwxpxd" path="res://wishtree.gd" id="1_dgj58"]
+[ext_resource type="Texture2D" uid="uid://dil26ghwmslaw" path="res://icon.svg" id="2_bkk4b"]
+[ext_resource type="Texture2D" uid="uid://c4urinqaka53n" path="res://assets/icons/gem_01d.png" id="3_7uaut"]
+
+[node name="wishtree" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dgj58")
+
+[node name="pull" type="Button" parent="."]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 544.0
+offset_right = 820.0
+offset_bottom = 610.0
+theme_override_font_sizes/font_size = 42
+text = "pull"
+
+[node name="pulls" type="Button" parent="."]
+layout_mode = 0
+offset_left = 904.0
+offset_top = 544.0
+offset_right = 1070.0
+offset_bottom = 610.0
+theme_override_font_sizes/font_size = 42
+text = "10x pull"
+
+[node name="back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 16.0
+offset_right = 1129.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 32
+text = "back"
+
+[node name="Button2" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_left = 840.0
+offset_top = 24.0
+offset_right = 977.0
+offset_bottom = 64.0
+metadata/_edit_group_ = true
+
+[node name="Panel" type="Panel" parent="Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Button2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 24
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Button2"]
+position = Vector2(110, 22)
+scale = Vector2(2.4375, 2.3125)
+texture = ExtResource("3_7uaut")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 408.0
+offset_top = 280.0
+offset_right = 695.0
+offset_bottom = 325.0
+theme_override_colors/font_color = Color(0.858824, 0.329412, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+text = "insufficient wishes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="error print timer" type="Timer" parent="Label"]
+one_shot = true
+
+[node name="prev" type="Node2D" parent="."]
+
+[node name="wish_animation" type="Sprite2D" parent="prev"]
+position = Vector2(552, 304)
+scale = Vector2(1.60938, 1.65625)
+texture = ExtResource("2_bkk4b")
+
+[node name="Label" type="Label" parent="prev"]
+offset_left = 126.0
+offset_top = 509.0
+offset_right = 400.0
+offset_bottom = 554.0
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="prev"]
+offset_left = 29.0
+offset_top = 270.0
+offset_right = 185.0
+offset_bottom = 362.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.41, 0.82, 1)
+
+[connection signal="pressed" from="pull" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="pulls" to="." method="_on_pulls_pressed"]
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
+[connection signal="timeout" from="Label/error print timer" to="." method="_on_error_print_timer_timeout"]

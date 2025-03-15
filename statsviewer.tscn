@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://0a16p1fke8os"]
+
+[ext_resource type="Script" uid="uid://gq3d7laxg8nh" path="res://statsviewer.gd" id="1_xmqkg"]
+
+[node name="statsviewer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xmqkg")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 384.0
+offset_bottom = 576.0
+metadata/_edit_group_ = true
+
+[node name="Control" type="Control" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = 66.0
+offset_right = -37.0
+offset_bottom = -45.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/Control"]
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+
+[node name="back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1048.0
+offset_top = 16.0
+offset_right = 1129.0
+offset_bottom = 69.0
+theme_override_font_sizes/font_size = 32
+text = "back"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 496.0
+offset_right = 614.0
+offset_bottom = 577.0
+theme_override_font_sizes/font_size = 36
+text = "upgrade"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.41, 0, 0, 1)
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

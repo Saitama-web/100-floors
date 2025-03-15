@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx3xkavt38581"]
+
+[ext_resource type="Texture2D" uid="uid://c3nv4ecj3owga" path="res://assets/sprites/button.png" id="1_trgx6"]
+[ext_resource type="Script" path="res://characters/bar.gd" id="2_tsq4h"]
+
+[node name="bar" type="TextureProgressBar"]
+anchors_preset = -1
+offset_right = 2.0
+offset_bottom = 1.0
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 1
+stretch_margin_right = 1
+stretch_margin_bottom = 1
+texture_progress = ExtResource("1_trgx6")
+tint_progress = Color(0.879099, 0.333242, 3.85046e-07, 1)
+script = ExtResource("2_tsq4h")

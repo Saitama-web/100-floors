@@ -1,0 +1,90 @@
+[gd_scene load_steps=12 format=3 uid="uid://baybup2mcy6dg"]
+
+[ext_resource type="Script" uid="uid://ddsplninwd28w" path="res://chest.gd" id="1_twpm2"]
+[ext_resource type="Texture2D" uid="uid://sgaqjmcplf6u" path="res://assets/chest/TX Chest Animation.png" id="2_8uwsg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp1or"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(32, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trlyu"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(96, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7mpe"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(160, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bv3sb"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(224, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_day8l"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(288, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3ekh"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(352, 0, 32, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6u83"]
+atlas = ExtResource("2_8uwsg")
+region = Rect2(416, 0, 32, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_twpm2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp1or")
+}],
+"loop": false,
+"name": &"closed",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp1or")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trlyu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x7mpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bv3sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_day8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3ekh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6u83")
+}],
+"loop": false,
+"name": &"open",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twpm2"]
+size = Vector2(32, 64)
+
+[node name="chest" type="RigidBody2D"]
+collision_layer = 2
+script = ExtResource("1_twpm2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -36)
+sprite_frames = SubResource("SpriteFrames_twpm2")
+animation = &"open"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_twpm2")
+
+[node name="dissolve_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="dissolve_timer" to="." method="_on_dissolve_timer_timeout"]
