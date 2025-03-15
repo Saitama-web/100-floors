@@ -7,7 +7,9 @@ func _ready() -> void:
 		#num=10 * level + pow(level, 2.074) player hp
 		#num = level * 2 + pow(level, 1.3)
 		#num = level * 12.5 + pow(level,2.24) #enemy hp
-		num = 1 + 2.5 * level + pow(level, 1.46)
+		#num = 1 + 2.5 * (level-1) + pow((level-1), 1.46)
+		#num=1 + 1.5 * level + pow(level, 1.1)
+		num = 10 * level + pow(level, 2.074)
 		print(str(level)+". "+str(num))
 
 var num=0

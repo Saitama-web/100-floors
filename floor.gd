@@ -3,7 +3,10 @@ extends Control
 #region New Code Region
 const player_ = preload("res://player.tscn")
 const dummy_ = preload("res://dummy.tscn")
+const enemy_ = preload("res://enemy.tscn")
+const boss_ = preload("res://boss.tscn")
 const chest_ = preload("res://chest.tscn")
+@onready var choice_panel: Panel = $choice_panel
 
 var total_enemy = []
 var remaining_enemy = 0
@@ -17,7 +20,6 @@ var wave_cleared = false
 var player
 var current_camera_pos=0
 var total_enemy_count = 0
-#var boss_level =false
 var floor_cleared = false
 var def_scale_label
 var can_coin_animate = true
@@ -25,6 +27,7 @@ var cam_pos = [570,1650]
 var camera_in_boss_area = false
 var once_=false
 var can_spawn_wave = true
+var boss_killed = false
 #endregion
 
 func _ready() -> void:
@@ -35,6 +38,7 @@ func _ready() -> void:
 	start_floor()
 	$Camera2D.global_position.x = 570
 	$CanvasLayer2/popup.hide()
+	$choice_panel.hide()
 	$CanvasLayer2/back.show()
 	$CanvasLayer2/coins/Panel/Label.text=str(g.total_gold)
 	def_scale_label=$CanvasLayer2/coins/Panel/Label.scale
@@ -61,18 +65,9 @@ func count_enemy(array):
 	for i in array:
 		add += i[0]
 	return add
-	print(add)
 
 func push_player():
 	player.init_push()
-
-#func create_enemy_pattern():
-	#var enemy_patern = []
-	#for i in range(randi_range(1,3)):
-		#enemy_patern.append(randi_range(2,5))
-	#
-	#print(enemy_patern)
-	#return enemy_patern
 
 var is_mini_boss = false
 var is_main_boss = false
@@ -80,6 +75,11 @@ var is_super_boss = false
 
 func create_enemy_pattern(level: int) -> Array:
 	var enemy_pattern = []
+	if level == 0:
+		enemy_pattern.append([2,0])
+		enemy_pattern.append([5,0])
+		return enemy_pattern
+		
 	var max_waves = min(2 + level / 20, 5)  # Gradual wave increase up to 5
 
 	# Normal enemy waves (Low count, high level)
@@ -87,51 +87,54 @@ func create_enemy_pattern(level: int) -> Array:
 		var enemy_level = clamp(wave_index + (level / 2), 1, 100)
 		var enemies_in_wave = 2 + int(level / 30)  # Low count, high level
 		enemy_pattern.append([enemies_in_wave, enemy_level])  # [count, level]
-
+	
+	
 	# Handle boss logic globally
 	is_mini_boss = level % 10 in [3, 6]
-	is_main_boss = level % 10 == 0
-	is_super_boss = level >= 90 and level % 10 == 0
+	is_main_boss = level < 90 and level % 10 == 0 
+	is_super_boss = level >= 90 and level % 10 == 0 
 
 	return enemy_pattern
 
 func start_floor():
+	boss_killed=false
 	$CanvasLayer2/Panel/Label.text = "Floor "+str(g.current_floor)
 	wave_counter=-1
 	wave_cleared=false
-	player.position = Vector2i(0,295) #y=295
+	player.position = Vector2i(0,295)
 	push_player()
-	#once = false
 	total_enemy=create_enemy_pattern(g.current_floor)
-	#if g.current_floor==10 or g.current_floor==20 or g.current_floor==30:
-		#boss_level=true
-	#else:
-		#boss_level=false
 	total_enemy_count=count_enemy(total_enemy)
 	if $StaticBody2D/wave_barrier.disabled:
 		$StaticBody2D/wave_barrier.disabled=false
 
 func _process(delta: float) -> void:
 	if floor_cleared:
-		if !once_:
-			once_ = true
-			if is_mini_boss or is_main_boss or is_super_boss:
-				if !$StaticBody2D/wave_barrier.disabled:
-					$StaticBody2D/wave_barrier.disabled=true
-				if !camera_in_boss_area:
-					if player.global_position.x>=1100:
-						#camera_in_boss_area=true
-						var tween = get_tree().create_tween()
-						tween.tween_property($Camera2D,"position:x",cam_pos[1],0.5)
-						if tween.finished:
-							camera_in_boss_area=true
+		if (is_mini_boss or is_main_boss or is_super_boss) and !boss_killed:
+			if !$StaticBody2D/wave_barrier.disabled:
+				$StaticBody2D/wave_barrier.disabled=true
+			if !camera_in_boss_area:
+				if player.global_position.x>=1100:
+					var tween = get_tree().create_tween()
+					tween.tween_property($Camera2D,"position:x",cam_pos[1],0.5)
+					camera_in_boss_area=true
+					spawn_boss()
+					once_ = false
+		else:
+			if !once_:
+				once_ = true
+				var type = "whatever"
+				if is_mini_boss:
+					type = "rare"
+				elif is_main_boss:
+					type = "legendary"
+				elif is_super_boss:
+					type = "legendary" #need better
 				else:
-					if player.global_position.x<1100:
-						var tween = get_tree().create_tween()
-						tween.tween_property($Camera2D,"position:x",cam_pos[0],0.5)
-						camera_in_boss_area=false
-			else:
-				spawn_chest()
+					type = "common"
+				print(type)
+				spawn_chest(type)
+				g.current_floor+=1
 				$CanvasLayer2/popup.show()
 				$CanvasLayer2/back.hide()
 				$CanvasLayer2/popup/Label.text="Level Cleared"
@@ -158,13 +161,14 @@ func spawn_enemies(spawn_order):
 			can_begin_wave=false
 			wave_counter +=1
 			wave_cleared=false
-			spawn_dummy(spawn_order[wave_counter])
+			spawn_enemy(spawn_order[wave_counter])
 			enemy_killed=0
 
-func spawn_chest():
+func spawn_chest(type):
 	var chest = chest_.instantiate()
-	chest.global_position.y=0 #player.global_position.y-100
+	chest.global_position.y=0
 	chest.global_position.x = player.global_position.x+100
+	chest.type = type
 	add_child(chest)
 
 func spawn_player():
@@ -174,19 +178,34 @@ func spawn_player():
 	$spawns.add_child(a)
 	g.player=player
 
-func spawn_dummy(enemy_data):
+func spawn_enemy(enemy_data):
 	enemy_spawned+=enemy_data[0]
 	for i in range(enemy_data[0]):
-		var a = dummy_.instantiate()
+		var a
+		if enemy_data[1]==0:
+			a= dummy_.instantiate()
+		else:
+			a = enemy_.instantiate()
 		a.level = enemy_data[1]
 		a.position = Vector2i(randi_range(0,1150),0)
 		$spawns.add_child(a)
 		await get_tree().create_timer(0.5).timeout
 
+func spawn_boss():
+	var a = boss_.instantiate()
+	if is_mini_boss:
+		a.type = "mini"
+	elif is_main_boss:
+		a.type = "main"
+	else:
+		a.type = "super"
+		
+	a.position = Vector2i(2000,0)
+	await get_tree().create_timer(2).timeout
+	$spawns.add_child(a)
+
 func update_floor():
 	floor_cleared=false
-	g.current_floor+=1
-	#g.player = null
 	enemy_killed=0
 	total_enemy_killed=0
 	enemy_spawned=0
@@ -196,13 +215,12 @@ func update_floor():
 	start_floor()
 
 func _on_button_pressed() -> void:
-	spawn_dummy(1)
+	spawn_enemy(1)
 
 func _on_wave_cd_timeout() -> void:
 	can_begin_wave=true
 
 func _on_menu_pressed() -> void:
-	g.current_floor+=1
 	g.save=true
 	get_tree().change_scene_to_file("res://main.tscn")
 
@@ -212,3 +230,13 @@ func _on_next_pressed() -> void:
 func _on_back_pressed() -> void:
 	g.save = true
 	get_tree().change_scene_to_file("res://main.tscn")
+
+func _on_revive_pressed() -> void:
+	get_tree().paused=false
+	player.reset_hp()
+	$choice_panel.hide()
+	player.show()
+
+func _on_die_pressed() -> void:
+	get_tree().paused=false
+	_on_back_pressed()

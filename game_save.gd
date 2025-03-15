@@ -8,6 +8,7 @@ extends Resource
 @export var total_gold : int
 @export var current_floor : int
 @export var player_level :int
+@export var sound_on : bool
 #@export var enemies_killed : int
 #@export var total_enemies_killed : int
 
@@ -20,6 +21,7 @@ func from_g():
 	total_gold = g.total_gold
 	current_floor = g.current_floor
 	player_level = g.player_level
+	sound_on = g.sound_on
 	#enemies_killed = g.enemies_killed
 	#total_enemies_killed = g.total_enemies_killed
 func to_g():
@@ -30,5 +32,6 @@ func to_g():
 	g.total_gold = self.total_gold
 	g.current_floor = self.current_floor
 	g.player_level = self.player_level
+	g.sound_on  = self.sound_on
 	#g.enemies_killed = self.enemies_killed
 	#g.total_enemies_killed = self.total_enemies_killed

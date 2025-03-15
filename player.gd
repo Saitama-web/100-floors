@@ -50,7 +50,11 @@ var base_def = 0
 #endregion
 
 func _ready() -> void:
-	max_hp = base_hp+g.added_hp
+	#if g.sound_on:
+		#$AudioStreamPlayer2D.stream_paused=false
+	#else:
+		#$AudioStreamPlayer2D.stream_paused=true
+	max_hp = g.base_hp+g.added_hp
 	hp=max_hp
 	def=g.base_def+g.added_def
 	total_def=def
@@ -59,9 +63,6 @@ func _ready() -> void:
 	skill_dmg=normal_dmg*2
 	burst_dmg=normal_dmg*5
 	add_to_group("player")
-	bar.max_value=hp
-	bar.value=bar.max_value
-	bar.position.x += bar.size.x/2*scale.x
 	if bar.has_theme_stylebox_override("fill"):
 		bar.remove_theme_stylebox_override("fill")
 		var a = StyleBoxFlat.new()
@@ -79,6 +80,9 @@ func _ready() -> void:
 		a.corner_radius_top_left=5
 		a.corner_radius_top_right=5
 		a.anti_aliasing=false
+	bar.max_value=hp
+	bar.value=bar.max_value
+	bar.position.x += bar.size.x/2*scale.x
 	
 	z_index=0
 	$CanvasLayer/buttons/skill/time.hide()
@@ -120,9 +124,10 @@ func attack():
 				await get_tree().create_timer(0.1).timeout
 				chest.open()
 			else:
-				$AudioStreamPlayer2D.stream=sound[3]
-				$AudioStreamPlayer2D.volume_db = -1
-				$AudioStreamPlayer2D.play()
+				if g.sound_on:
+					$AudioStreamPlayer2D.stream=sound[3]
+					$AudioStreamPlayer2D.volume_db = -1
+					$AudioStreamPlayer2D.play()
 	elif Input.is_action_just_pressed("skill"):
 		if can_skill:
 			critical_hit=false
@@ -143,9 +148,10 @@ func attack():
 				for enemy in enemies:
 					enemy.hit(dmg)
 			else:
-				$AudioStreamPlayer2D.stream=sound[3]
-				$AudioStreamPlayer2D.volume_db = -1
-				$AudioStreamPlayer2D.play()
+				if g.sound_on:
+					$AudioStreamPlayer2D.stream=sound[3]
+					$AudioStreamPlayer2D.volume_db = -1
+					$AudioStreamPlayer2D.play()
 	elif Input.is_action_just_pressed("burst"):
 		if can_burst:
 			critical_hit=false
@@ -166,9 +172,10 @@ func attack():
 				for enemy in enemies:
 					enemy.hit(dmg)
 			else:
-				$AudioStreamPlayer2D.stream=sound[3]
-				$AudioStreamPlayer2D.volume_db = -1
-				$AudioStreamPlayer2D.play()
+				if g.sound_on:
+					$AudioStreamPlayer2D.stream=sound[3]
+					$AudioStreamPlayer2D.volume_db = -1
+					$AudioStreamPlayer2D.play()
 
 func _on_unpauser_timeout() -> void:
 	get_tree().paused=false
@@ -264,16 +271,17 @@ func hit(raw_dmg):
 		return
 	hp-=dmg
 	if hp<=0:
-		$AudioStreamPlayer2D.stream=sound[2]
-		$AudioStreamPlayer2D.play()
+		if g.sound_on:
+			$AudioStreamPlayer2D.stream=sound[2]
+			$AudioStreamPlayer2D.play()
 		handle_lost()
 	else:
-		$AudioStreamPlayer2D.stream=sound[randi_range(0,1)]
-		$AudioStreamPlayer2D.play()
+		if g.sound_on:
+			$AudioStreamPlayer2D.stream=sound[randi_range(0,1)]
+			$AudioStreamPlayer2D.play()
 	
 	var dmg_indicator = dmg_num.instantiate()
 	dmg_indicator.text=str(dmg)
-	dmg_indicator.position.x-= 10
 	bar_pos.add_child(dmg_indicator)
 	bar.value-=dmg
 
@@ -297,7 +305,7 @@ func reset_atk_timer():
 	can_burst=true
 
 func handle_lost():
-	get_parent().choice_panel.show()
+	get_parent().get_parent().choice_panel.show()
 	hide()
 	get_tree().paused=true
 

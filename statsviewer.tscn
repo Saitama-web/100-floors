@@ -50,15 +50,6 @@ offset_bottom = 69.0
 theme_override_font_sizes/font_size = 32
 text = "back"
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 448.0
-offset_top = 496.0
-offset_right = 614.0
-offset_bottom = 577.0
-theme_override_font_sizes/font_size = 36
-text = "upgrade"
-
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1
 layout_mode = 1
@@ -71,4 +62,3 @@ mouse_filter = 2
 color = Color(0.41, 0, 0, 1)
 
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

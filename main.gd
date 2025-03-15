@@ -10,9 +10,9 @@ func try_exit():
 	$exit_window.show()
 
 func update_player_base(level: int):
-	g.base_hp = 10 * level + pow(level, 2.074)
-	g.base_atk = 1 + 2.5 * level + pow(level, 1.46)
-	g.base_def = 1 + 1.5 * level + pow(level, 1.1)
+	g.base_hp = round(10 * level + pow(level, 2.074))
+	g.base_atk = round(1 + 2.5 * (level-1) + pow((level-1), 1.46))
+	g.base_def = round(1 + 1.5 * (level-1) + pow((level-1), 1.1))
 	#print(str(level)+" , "+str(g.base_atk))
 
 func update_global():
@@ -63,6 +63,10 @@ func _ready() -> void:
 		update_global()
 		g.save=false
 	anim.play("idle")
+	if g.sound_on:
+		$sound.text ="sound on"
+	else:
+		$sound.text ="sound off"
 
 func _on_inv_pressed() -> void:
 	g.last_scene="res://inventory.tscn"
@@ -119,3 +123,14 @@ func _on_cancel_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	get_tree().quit()
+
+func _on_upgrade_pressed() -> void:
+	get_tree().change_scene_to_file("res://upgrade.tscn")
+
+func _on_sound_pressed() -> void:
+	g.sound_on =!g.sound_on
+	if g.sound_on:
+		$sound.text ="sound on"
+	else:
+		$sound.text ="sound off"
+		 

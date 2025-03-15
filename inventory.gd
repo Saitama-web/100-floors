@@ -12,8 +12,8 @@ var aclicked=false
 var clicked_item_count:int = -1
 var inv_limit=g.inv_capacity
 var equ_limit=3
-var rl=["Legendary","Rare","Dull"]
-var il=["Sword","Armour","Artifact"]
+#var g.rarity=["Legendary","Rare","Dull"]
+#var g.item=["Sword","Armour","Artifact"]
 var items_total=[]
 var offset:Vector2
 var temp_texture : Texture2D
@@ -75,8 +75,8 @@ func _process(delta: float) -> void:
 						update_label(child2.details)
 						breaked=true
 						break
-					else:
-						$item_stats.hide()
+					#else:
+						#$item_stats.hide()
 				if breaked:
 					break
 
@@ -92,13 +92,14 @@ func _process(delta: float) -> void:
 					if $item_stats/Control/enhance.disabled:
 						$item_stats/Control/enhance.disabled=false
 					break
-				else:
-					$item_stats.hide()
+				#else:
+					#$item_stats.hide()
 		else:
 			if!button_pressed:
-				$item_stats/Control/equip.disabled=true
-				$item_stats/Control/enhance.disabled=true
-				$item_stats/Label/remove.hide()
+				$item_stats.hide()
+				#$item_stats/Control/equip.disabled=true
+				#$item_stats/Control/enhance.disabled=true
+				#$item_stats/Label/remove.hide()
 
 	elif Input.is_action_just_released("click"):
 		button_pressed=false
@@ -123,7 +124,7 @@ func update_inventory():
 			var can_break = false
 			for k in range(0,3):
 				for j in range(0,3):
-					if items.details[1]==il[k] and items.details[0]==rl[j]:
+					if items.details[1]==g.item[k] and items.details[0]==g.rarity[j]:
 						items.icon=items_total[k][j]
 						can_break=true
 						break
@@ -154,7 +155,7 @@ func update_equipped():
 			var can_break = false
 			for k in range(0,3):
 				for j in range(0,3):
-					if items.details[1]==il[k] and items.details[0]==rl[j]:
+					if items.details[1]==g.item[k] and items.details[0]==g.rarity[j]:
 						if k==0 :
 							items.position = weapon_pos
 						elif k == 1 :

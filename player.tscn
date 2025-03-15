@@ -409,8 +409,7 @@ position = Vector2(53, 0)
 shape = SubResource("RectangleShape2D_ytxnd")
 
 [node name="bar_position" type="Node2D" parent="."]
-position = Vector2(0, -80)
-scale = Vector2(5, 5)
+position = Vector2(-1, -68)
 
 [node name="attack_timer" type="Timer" parent="."]
 

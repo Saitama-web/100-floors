@@ -95,13 +95,11 @@ theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 42
 text = "gacha"
 
-[node name="sta" type="Button" parent="VBoxContainer"]
+[node name="upgrade" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 16
 theme_override_font_sizes/font_size = 42
-text = "stats"
+text = "upgrade"
 
 [node name="coins" type="Button" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -199,6 +197,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="exit_window" type="ColorRect" parent="."]
+visible = false
 z_index = 1
 layout_mode = 1
 anchors_preset = 15
@@ -247,11 +246,29 @@ offset_bottom = 255.0
 theme_override_font_sizes/font_size = 32
 text = "Exit"
 
+[node name="settings" type="Button" parent="."]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 541.0
+offset_right = 110.0
+offset_bottom = 572.0
+text = "settings
+"
+
+[node name="sound" type="Button" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 503.0
+offset_right = 132.0
+offset_bottom = 534.0
+text = "sound"
+
 [connection signal="pressed" from="VBoxContainer/inv" to="." method="_on_inv_pressed"]
 [connection signal="pressed" from="VBoxContainer/bat" to="." method="_on_bat_pressed"]
 [connection signal="pressed" from="VBoxContainer/gat" to="." method="_on_gat_pressed"]
-[connection signal="pressed" from="VBoxContainer/sta" to="." method="_on_sta_pressed"]
+[connection signal="pressed" from="VBoxContainer/upgrade" to="." method="_on_upgrade_pressed"]
 [connection signal="pressed" from="coins" to="." method="_on_coins_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="exit_window/exit_conf/cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="exit_window/exit_conf/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="sound" to="." method="_on_sound_pressed"]

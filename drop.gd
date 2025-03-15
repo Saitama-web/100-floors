@@ -20,8 +20,9 @@ func _ready() -> void:
 		$Sprite2d.texture=preload("res://assets/icons/gem_01d.png")
 		audio.stream=sound[5]
 		audio.volume_db = -6
+		if g.sound_on:
+			audio.play()
 	anim.play("spawn")
-	audio.play()
 	
 	var tween = get_parent().create_tween()
 	tween.parallel().tween_property(self,"position:x",randi_range(-100,100),0.8).set_ease(Tween.EASE_IN_OUT).as_relative()
@@ -31,7 +32,8 @@ func pickup():
 		audio.stream = sound[0]
 	elif type =="wish":
 		audio.stream=sound[4]
-	audio.play()
+	if g.sound_on:
+		audio.play()
 	var tween = get_parent().create_tween()
 	tween.parallel().tween_property(self,"modulate:a",0,0.3)
 	tween.parallel().tween_property(self,"position:y",-200,0.3).set_ease(Tween.EASE_IN_OUT).as_relative()

@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvhmjycqbty1g"]
 
 [ext_resource type="Texture2D" uid="uid://dil26ghwmslaw" path="res://icon.svg" id="1_gtj52"]
-[ext_resource type="Script" uid="uid://bf1d13ckty6fs" path="res://dummy.gd" id="1_xmspm"]
+[ext_resource type="Script" uid="uid://di7qa5sij3kkr" path="res://dummy.gd" id="1_xmspm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmspm"]
-size = Vector2(54, 82)
+size = Vector2(54, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0umox"]
 size = Vector2(238, 55)

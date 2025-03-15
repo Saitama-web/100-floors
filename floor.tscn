@@ -244,8 +244,50 @@ theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="choice_panel" type="Panel" parent="."]
+process_mode = 3
+top_level = true
+z_index = 10
+layout_mode = 0
+offset_left = 329.0
+offset_top = 60.0
+offset_right = 740.0
+offset_bottom = 588.0
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="choice_panel"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 51.0
+offset_right = 403.0
+offset_bottom = 206.0
+theme_override_font_sizes/font_size = 48
+text = "You Died"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="revive" type="Button" parent="choice_panel"]
+layout_mode = 0
+offset_left = 245.0
+offset_top = 327.0
+offset_right = 370.0
+offset_bottom = 380.0
+theme_override_font_sizes/font_size = 32
+text = "Revive"
+
+[node name="die" type="Button" parent="choice_panel"]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 327.0
+offset_right = 162.0
+offset_bottom = 380.0
+theme_override_font_sizes/font_size = 32
+text = "Die"
+
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="timeout" from="wave_cd" to="." method="_on_wave_cd_timeout"]
 [connection signal="pressed" from="CanvasLayer2/popup/menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="CanvasLayer2/popup/next" to="." method="_on_next_pressed"]
 [connection signal="pressed" from="CanvasLayer2/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="choice_panel/revive" to="." method="_on_revive_pressed"]
+[connection signal="pressed" from="choice_panel/die" to="." method="_on_die_pressed"]
