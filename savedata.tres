@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="saves" load_steps=2 format=3 uid="uid://ds6s57nqjx5en"]
+[gd_resource type="Resource" script_class="saves" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://c0f2qwhxwh1yb" path="res://game_save.gd" id="1_dfkxt"]
+[ext_resource type="Script" path="res://game_save.gd" id="1_dfkxt"]
 
 [resource]
 script = ExtResource("1_dfkxt")

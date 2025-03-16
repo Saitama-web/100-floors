@@ -12,8 +12,6 @@ var aclicked=false
 var clicked_item_count:int = -1
 var inv_limit=g.inv_capacity
 var equ_limit=3
-#var g.rarity=["Legendary","Rare","Dull"]
-#var g.item=["Sword","Armour","Artifact"]
 var items_total=[]
 var offset:Vector2
 var temp_texture : Texture2D
