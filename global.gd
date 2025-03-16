@@ -37,3 +37,4 @@ var player_level=1
 var enemy_level=0
 var total_enemies_killed=0
 var sound_on = false
+var music_on = false

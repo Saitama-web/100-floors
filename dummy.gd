@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-#region New Code Region
-@onready var anim: AnimatedSprite2D = $AnimatedSprite2D
+#region New Code Regionddddddddddddddddddd
 @onready var audio= AudioStreamPlayer2D.new()
 const p_bar = preload("res://p_bar.tscn")
 const dmg_num = preload("res://characters/dmg_num.tscn")
@@ -33,7 +32,7 @@ var can_move = false
 var atk_in_cd = false
 #endregion
 
-func set_enemy_stats(enemy_level: int):
+func set_enemy_stats():
 	# Normal enemy scaling
 	max_hp = 5 # Increased power factor for ATK
 	max_def = 1  # Slightly slower DEF scaling
@@ -46,7 +45,7 @@ func move():
 
 func _ready() -> void:
 	add_to_group("enemy")
-	set_enemy_stats(level)
+	set_enemy_stats()
 	$Label.text="Lv. "+str(level)
 	def = max_def
 	hp = max_hp

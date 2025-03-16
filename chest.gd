@@ -21,7 +21,6 @@ func _ready() -> void:
 	elif type == "legendary":
 		$AnimatedSprite2D.scale*=(2*2)
 		$CollisionShape2D.scale*=(2*2)
-		
 
 func open():
 	anim.play("open_"+type)
@@ -42,26 +41,42 @@ func spawn_rewards():
 		for i in range(10):
 			var a = drop.instantiate()
 			a.position=position
+			a.position.y = position.y + 25
 			a.type="coin"
 			get_parent().add_child(a)
 			await get_tree().create_timer(0.05).timeout
 		for i in range(2):
 			var a = drop.instantiate()
 			a.position=position
+			a.position.y = position.y + 25
 			a.type="wish"
 			get_parent().add_child(a)
 			await get_tree().create_timer(0.05).timeout
-	else:
+	elif type == "rare":
 		for i in range(20):
 			var a = drop.instantiate()
 			a.position=position
+			a.position.y = position.y+50*1.5
 			a.type="coin"
 			get_parent().add_child(a)
 			await get_tree().create_timer(0.05).timeout
 		for i in range(10):
 			var a = drop.instantiate()
-			a.position=position
+			a.position.y = position.y+50*1.5
 			a.type="wish"
 			get_parent().add_child(a)
 			await get_tree().create_timer(0.05).timeout
-		
+	elif type == "legendary":
+		for i in range(20):
+			var a = drop.instantiate()
+			a.position=position
+			a.position.y = position.y+50*2
+			a.type="coin"
+			get_parent().add_child(a)
+			await get_tree().create_timer(0.05).timeout
+		for i in range(10):
+			var a = drop.instantiate()
+			a.position.y = position.y+50*2
+			a.type="wish"
+			get_parent().add_child(a)
+			await get_tree().create_timer(0.05).timeout

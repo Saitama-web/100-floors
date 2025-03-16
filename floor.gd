@@ -6,7 +6,7 @@ const dummy_ = preload("res://dummy.tscn")
 const enemy_ = preload("res://enemy.tscn")
 const boss_ = preload("res://boss.tscn")
 const chest_ = preload("res://chest.tscn")
-@onready var choice_panel: Panel = $choice_panel
+@onready var choice_panel: Panel = $CanvasLayer2/choice_panel
 
 var total_enemy = []
 var remaining_enemy = 0
@@ -38,7 +38,8 @@ func _ready() -> void:
 	start_floor()
 	$Camera2D.global_position.x = 570
 	$CanvasLayer2/popup.hide()
-	$choice_panel.hide()
+	choice_panel.hide()
+	$go_prompted.hide()
 	$CanvasLayer2/back.show()
 	$CanvasLayer2/coins/Panel/Label.text=str(g.total_gold)
 	def_scale_label=$CanvasLayer2/coins/Panel/Label.scale
@@ -73,6 +74,8 @@ var is_mini_boss = false
 var is_main_boss = false
 var is_super_boss = false
 
+@onready var music = preload("res://assets/sounds/music.mp3")
+
 func create_enemy_pattern(level: int) -> Array:
 	var enemy_pattern = []
 	if level == 0:
@@ -80,12 +83,12 @@ func create_enemy_pattern(level: int) -> Array:
 		enemy_pattern.append([5,0])
 		return enemy_pattern
 		
-	var max_waves = min(2 + level / 20, 5)  # Gradual wave increase up to 5
+	var max_waves = min(2 + level / 20.0, 5)  # Gradual wave increase up to 5
 
 	# Normal enemy waves (Low count, high level)
 	for wave_index in range(max_waves):
-		var enemy_level = clamp(wave_index + (level / 2), 1, 100)
-		var enemies_in_wave = 2 + int(level / 30)  # Low count, high level
+		var enemy_level = clamp(wave_index + (level / 2.0), 1, 100)
+		var enemies_in_wave = 2 + int(level / 30.0)  # Low count, high level
 		enemy_pattern.append([enemies_in_wave, enemy_level])  # [count, level]
 	
 	
@@ -97,6 +100,7 @@ func create_enemy_pattern(level: int) -> Array:
 	return enemy_pattern
 
 func start_floor():
+	$StaticBody2D/wave_barrier.position.x = 1153
 	boss_killed=false
 	$CanvasLayer2/Panel/Label.text = "Floor "+str(g.current_floor)
 	wave_counter=-1
@@ -107,12 +111,25 @@ func start_floor():
 	total_enemy_count=count_enemy(total_enemy)
 	if $StaticBody2D/wave_barrier.disabled:
 		$StaticBody2D/wave_barrier.disabled=false
-
-func _process(delta: float) -> void:
+var music_playing = false
+func _process(_delta: float) -> void:
+	if !music_playing:
+		if g.music_on:
+			music_playing=true
+			$audio.stream = music
+			$audio.volume_db-=10
+			$audio.play()
 	if floor_cleared:
 		if (is_mini_boss or is_main_boss or is_super_boss) and !boss_killed:
-			if !$StaticBody2D/wave_barrier.disabled:
-				$StaticBody2D/wave_barrier.disabled=true
+			if player.global_position.x<1100:
+				if !$StaticBody2D/wave_barrier.disabled:
+					$StaticBody2D/wave_barrier.disabled=true
+					$go_prompted.show()
+			elif player.global_position.x>1100:
+				if $StaticBody2D/wave_barrier.disabled:
+					$StaticBody2D/wave_barrier.position.x = 1085
+					$StaticBody2D/wave_barrier.disabled=false
+					$go_prompted.hide()
 			if !camera_in_boss_area:
 				if player.global_position.x>=1100:
 					var tween = get_tree().create_tween()
@@ -132,7 +149,6 @@ func _process(delta: float) -> void:
 					type = "legendary" #need better
 				else:
 					type = "common"
-				print(type)
 				spawn_chest(type)
 				g.current_floor+=1
 				$CanvasLayer2/popup.show()
@@ -214,9 +230,6 @@ func update_floor():
 	$CanvasLayer2/back.show()
 	start_floor()
 
-func _on_button_pressed() -> void:
-	spawn_enemy(1)
-
 func _on_wave_cd_timeout() -> void:
 	can_begin_wave=true
 
@@ -234,7 +247,7 @@ func _on_back_pressed() -> void:
 func _on_revive_pressed() -> void:
 	get_tree().paused=false
 	player.reset_hp()
-	$choice_panel.hide()
+	choice_panel.hide()
 	player.show()
 
 func _on_die_pressed() -> void:

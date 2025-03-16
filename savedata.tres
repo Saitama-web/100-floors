@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="saves" load_steps=2 format=3 uid="uid://drryjkqg7312j"]
+[gd_resource type="Resource" script_class="saves" load_steps=2 format=3 uid="uid://ds6s57nqjx5en"]
 
 [ext_resource type="Script" uid="uid://c0f2qwhxwh1yb" path="res://game_save.gd" id="1_dfkxt"]
 
@@ -8,6 +8,7 @@ bag = []
 equipped = []
 wish_count = 0
 total_gold = 0
-current_floor = 0
-player_level = 0
+current_floor = 3
+player_level = 3
 sound_on = true
+music_on = true

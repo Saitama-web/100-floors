@@ -50,10 +50,6 @@ var base_def = 0
 #endregion
 
 func _ready() -> void:
-	#if g.sound_on:
-		#$AudioStreamPlayer2D.stream_paused=false
-	#else:
-		#$AudioStreamPlayer2D.stream_paused=true
 	max_hp = g.base_hp+g.added_hp
 	hp=max_hp
 	def=g.base_def+g.added_def

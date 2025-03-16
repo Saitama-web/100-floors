@@ -263,6 +263,15 @@ offset_right = 132.0
 offset_bottom = 534.0
 text = "sound"
 
+[node name="music" type="Button" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 463.0
+offset_right = 132.0
+offset_bottom = 494.0
+text = "music
+"
+
 [connection signal="pressed" from="VBoxContainer/inv" to="." method="_on_inv_pressed"]
 [connection signal="pressed" from="VBoxContainer/bat" to="." method="_on_bat_pressed"]
 [connection signal="pressed" from="VBoxContainer/gat" to="." method="_on_gat_pressed"]
@@ -272,3 +281,4 @@ text = "sound"
 [connection signal="pressed" from="exit_window/exit_conf/cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="exit_window/exit_conf/exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="sound" to="." method="_on_sound_pressed"]
+[connection signal="pressed" from="music" to="." method="_on_music_pressed"]

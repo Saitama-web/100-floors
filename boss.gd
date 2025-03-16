@@ -25,7 +25,7 @@ var z_index_options = [1]
 var hurt = false
 var hurt_duration = 1
 var speed = 100
-var atk_cd = 2.0
+var atk_cd = 1.0
 var boss_level : int
 var can_attack = false
 var facing_right = false
@@ -90,7 +90,6 @@ func _ready() -> void:
 	atk = max_atk
 	def = max_def
 	hp = max_hp
-	print("hp : "+str(max_hp))
 	bar.max_value = max_hp
 	bar.value = hp
 	if type == "mini":
@@ -137,7 +136,7 @@ func _physics_process(delta: float) -> void:
 			move()
 		elif !atk_in_cd and !can_move:
 			if move_to_atk:
-				$atk_cd.start(atk_cd/2)
+				$atk_cd.start(0.4)
 				move_to_atk=false
 				atk_in_cd=true
 			else:
