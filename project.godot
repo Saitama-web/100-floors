@@ -10,10 +10,11 @@ config_version=5
 
 [application]
 
-config/name="rpg : alternate"
+config/name="100 Floors"
 config/description="clear 100 floors to reach the prisoned person.
 each 10 floor has a boss enemy
 100th floor has the final boss"
+config/version="0.1"
 run/main_scene="uid://b0umbsyf3ld1y"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
