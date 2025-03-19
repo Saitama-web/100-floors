@@ -4,13 +4,13 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio= AudioStreamPlayer2D.new()
 const p_bar = preload("res://p_bar.tscn")
-const dmg_num = preload("res://characters/dmg_num.tscn")
+const dmg_num = preload("res://dmg_num.tscn")
 const drop = preload("res://drop.tscn")
 var sound=[
-preload("res://assets/sprites/sword-sound-effect-1-234987.mp3"),
-preload("res://assets/sprites/sword-sound-effect-2-234986.mp3"),
-preload("res://assets/sprites/sword-stab-pull-melee-weapon-236207.mp3"),
-preload("res://assets/sprites/blank3.mp3"),
+	preload("res://assets/sounds/sword-sound.mp3"),
+	preload("res://assets/sounds/sword-sound_.mp3"),
+	preload("res://assets/sounds/sword-stab.mp3"),
+	preload("res://assets/sounds/blank.mp3"),
 preload("res://assets/sounds/summon.mp3")
 ]
 var max_atk = 0
@@ -205,8 +205,6 @@ func hit(dmg):
 func despawn():
 	spawn_coin()
 	get_parent().get_parent().boss_killed = true
-	#get_parent().get_parent().enemy_killed +=1
-	#get_parent().get_parent().total_enemy_killed +=1
 	queue_free()
 
 func flip():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bwbwxx0hvx0jv"]
 
 [ext_resource type="Script" uid="uid://eckextf0etky" path="res://drop.gd" id="1_y20vl"]
-[ext_resource type="Texture2D" uid="uid://bckuvena2bqy7" path="res://assets/icons/coin_01d.png" id="2_3hy0p"]
+[ext_resource type="Texture2D" uid="uid://bckuvena2bqy7" path="res://assets/ingame_items/icons/coin_01d.png" id="2_3hy0p"]
 
 [sub_resource type="Animation" id="Animation_cvn7y"]
 length = 0.001

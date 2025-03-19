@@ -1,13 +1,13 @@
 [gd_scene load_steps=52 format=3 uid="uid://tbgmd6bfj61d"]
 
 [ext_resource type="Script" uid="uid://beyrxxkmumogt" path="res://boss.gd" id="1_ef0k6"]
-[ext_resource type="Texture2D" uid="uid://clavr1dqbvim7" path="res://Knight_player/Attack_KG_1.png" id="1_kvofc"]
-[ext_resource type="Texture2D" uid="uid://br8h88x8a7g81" path="res://Knight_player/Attack_KG_2.png" id="2_ef0k6"]
-[ext_resource type="Texture2D" uid="uid://bu6xwmh6856qf" path="res://Knight_player/Attack_KG_3.png" id="3_ry61v"]
-[ext_resource type="Texture2D" uid="uid://di2ouynhr2dsg" path="res://Knight_player/Attack_KG_4.png" id="4_kles1"]
-[ext_resource type="Texture2D" uid="uid://qb0hjsmnfcvl" path="res://Knight_player/Hurt_KG_2.png" id="5_etj48"]
-[ext_resource type="Texture2D" uid="uid://kku85a4nl5q8" path="res://Knight_player/Idle_KG_2.png" id="6_h3lj5"]
-[ext_resource type="Texture2D" uid="uid://cbegd5kdixffc" path="res://Knight_player/Walking_KG_2.png" id="7_1s1j2"]
+[ext_resource type="Texture2D" uid="uid://clavr1dqbvim7" path="res://assets/player_sprites/Attack_KG_1.png" id="1_kvofc"]
+[ext_resource type="Texture2D" uid="uid://br8h88x8a7g81" path="res://assets/player_sprites/Attack_KG_2.png" id="2_ef0k6"]
+[ext_resource type="Texture2D" uid="uid://bu6xwmh6856qf" path="res://assets/player_sprites/Attack_KG_3.png" id="3_ry61v"]
+[ext_resource type="Texture2D" uid="uid://di2ouynhr2dsg" path="res://assets/player_sprites/Attack_KG_4.png" id="4_kles1"]
+[ext_resource type="Texture2D" uid="uid://qb0hjsmnfcvl" path="res://assets/player_sprites/Hurt_KG_2.png" id="5_etj48"]
+[ext_resource type="Texture2D" uid="uid://kku85a4nl5q8" path="res://assets/player_sprites/Idle_KG_2.png" id="6_h3lj5"]
+[ext_resource type="Texture2D" uid="uid://cbegd5kdixffc" path="res://assets/player_sprites/Walking_KG_2.png" id="7_1s1j2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xmspm"]
 size = Vector2(54, 80)

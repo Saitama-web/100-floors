@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://b0umbsyf3ld1y"]
 
 [ext_resource type="Script" uid="uid://cgkcce1tcbylg" path="res://main.gd" id="1_h4qkr"]
-[ext_resource type="Texture2D" uid="uid://bckuvena2bqy7" path="res://assets/icons/coin_01d.png" id="2_tdyai"]
-[ext_resource type="Texture2D" uid="uid://c4urinqaka53n" path="res://assets/icons/gem_01d.png" id="3_wevdy"]
-[ext_resource type="Texture2D" uid="uid://dgt884v14f6db" path="res://Knight_player/Idle_KG_1.png" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bckuvena2bqy7" path="res://assets/ingame_items/icons/coin_01d.png" id="2_tdyai"]
+[ext_resource type="Texture2D" uid="uid://c4urinqaka53n" path="res://assets/ingame_items/icons/gem_01d.png" id="3_wevdy"]
+[ext_resource type="Texture2D" uid="uid://dgt884v14f6db" path="res://assets/player_sprites/Idle_KG_1.png" id="4_1bvp3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lquwl"]
 atlas = ExtResource("4_1bvp3")

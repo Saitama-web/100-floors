@@ -4,13 +4,13 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var bar_pos: Node2D = $bar_position
 @onready var bar: ProgressBar = $CanvasLayer/hp_bar
-const dmg_num = preload("res://characters/dmg_num.tscn")
 var na = ["atk1","atk2"]
+const dmg_num = preload("res://dmg_num.tscn")
 var sound=[
-preload("res://assets/sprites/sword-sound-effect-1-234987.mp3"),
-preload("res://assets/sprites/sword-sound-effect-2-234986.mp3"),
-preload("res://assets/sprites/sword-stab-pull-melee-weapon-236207.mp3"),
-preload("res://assets/sprites/blank3.mp3")
+	preload("res://assets/sounds/sword-sound.mp3"),
+	preload("res://assets/sounds/sword-sound_.mp3"),
+	preload("res://assets/sounds/sword-stab.mp3"),
+	preload("res://assets/sounds/blank.mp3")
 ]
 var enemies =[]
 var normal_dmg = 1

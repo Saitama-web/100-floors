@@ -4,14 +4,14 @@ extends CharacterBody2D
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 @onready var audio= AudioStreamPlayer2D.new()
 const p_bar = preload("res://p_bar.tscn")
-const dmg_num = preload("res://characters/dmg_num.tscn")
+const dmg_num = preload("res://dmg_num.tscn")
 const drop = preload("res://drop.tscn")
 var sound=[
-preload("res://assets/sprites/sword-sound-effect-1-234987.mp3"),
-preload("res://assets/sprites/sword-sound-effect-2-234986.mp3"),
-preload("res://assets/sprites/sword-stab-pull-melee-weapon-236207.mp3"),
-preload("res://assets/sprites/blank3.mp3"),
-preload("res://assets/sounds/summon.mp3")
+	preload("res://assets/sounds/sword-sound.mp3"),
+	preload("res://assets/sounds/sword-sound_.mp3"),
+	preload("res://assets/sounds/sword-stab.mp3"),
+	preload("res://assets/sounds/blank.mp3"),
+	preload("res://assets/sounds/summon.mp3")
 ]
 var max_atk = 0
 var atk = 1
@@ -23,7 +23,7 @@ var attacking = false
 var bar = p_bar.instantiate()
 var z_index_options = [1,-1]
 var hurt = false
-var hurt_duration = 1
+var hurt_duration = 0.5
 var speed = 100
 var atk_cd = 1.0
 var level : int
@@ -120,13 +120,13 @@ func _physics_process(delta: float) -> void:
 				velocity.x = 0
 				anim.play("idle")
 	else:
-		if can_hurt:
-			anim.play("hurt")
-			if once:
-				once = false
-				anim.animation_finished.connect(can_hurt_)
-		else:
-			anim.play("idle")
+		#if can_hurt:
+		anim.play("hurt")
+			#if once:
+				#once = false
+				#anim.animation_finished.connect(can_hurt_)
+		#else:
+			#anim.play("idle")
 			
 	
 	move_and_slide()
@@ -140,10 +140,11 @@ func can_hurt_():
 var can_hurt = true
 
 func hit(dmg):
-	$hurt_timer.stop()
-	hurt = true
-	can_hurt=true
-	$hurt_timer.start(hurt_duration)
+	#$hurt_timer.stop()
+	if !hurt:
+		hurt = true
+		can_hurt=true
+		$hurt_timer.start(hurt_duration)
 	if g.player:
 		if g.player.global_position.x>global_position.x:
 			velocity.x=-100

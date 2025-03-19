@@ -62,6 +62,7 @@ func spawn_rewards():
 			await get_tree().create_timer(0.05).timeout
 		for i in range(10):
 			var a = drop.instantiate()
+			a.position=position
 			a.position.y = position.y+50*1.5
 			a.type="wish"
 			get_parent().add_child(a)
@@ -76,6 +77,7 @@ func spawn_rewards():
 			await get_tree().create_timer(0.05).timeout
 		for i in range(10):
 			var a = drop.instantiate()
+			a.position=position
 			a.position.y = position.y+50*2
 			a.type="wish"
 			get_parent().add_child(a)

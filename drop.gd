@@ -14,10 +14,10 @@ func _ready() -> void:
 	get_parent().add_child(audio)
 	audio.stream=sound[1]
 	if type=="coin":
-		$Sprite2d.texture=preload("res://assets/icons/coin_01d.png")
+		$Sprite2d.texture=preload("res://assets/ingame_items/icons/coin_01d.png")
 		audio.stream=sound[1]
 	elif type=="wish":
-		$Sprite2d.texture=preload("res://assets/icons/gem_01d.png")
+		$Sprite2d.texture=preload("res://assets/ingame_items/icons/gem_01d.png")
 		audio.stream=sound[5]
 		audio.volume_db = -6
 		if g.sound_on:

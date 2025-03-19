@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="saves" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="saves" load_steps=2 format=3 uid="uid://1bofar57uq6"]
 
-[ext_resource type="Script" path="res://game_save.gd" id="1_dfkxt"]
+[ext_resource type="Script" uid="uid://c0f2qwhxwh1yb" path="res://game_save.gd" id="1_dfkxt"]
 
 [resource]
 script = ExtResource("1_dfkxt")
-bag = []
+bag = [["Dull", "Artifact", 1], ["Dull", "Armour", 1], ["Dull", "Armour", 1], ["Dull", "Sword", 1], ["Rare", "Sword", 1], ["Dull", "Artifact", 1], ["Rare", "Sword", 1], ["Dull", "Artifact", 1]]
 equipped = []
 wish_count = 0
 total_gold = 0
 current_floor = 3
-player_level = 3
+player_level = 0
 sound_on = true
 music_on = true
