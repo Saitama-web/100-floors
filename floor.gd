@@ -38,6 +38,8 @@ func _ready() -> void:
 	start_floor()
 	$Camera2D.global_position.x = 570
 	$CanvasLayer2/popup.hide()
+	choice_panel.scale = Vector2.ONE*1.5
+	choice_panel.modulate.a = 0
 	choice_panel.hide()
 	$go_prompted.hide()
 	$CanvasLayer2/back.show()
@@ -125,10 +127,14 @@ func _process(_delta: float) -> void:
 				if !$StaticBody2D/wave_barrier.disabled:
 					$StaticBody2D/wave_barrier.disabled=true
 					$go_prompted.show()
+					var tween = $go_prompted.create_tween().set_loops(100)
+					tween.tween_property($go_prompted,"size:x",180,0.5)
+					tween.tween_property($go_prompted,"size:x",100,0.5)
 			elif player.global_position.x>1100:
 				if $StaticBody2D/wave_barrier.disabled:
 					$StaticBody2D/wave_barrier.position.x = 1085
 					$StaticBody2D/wave_barrier.disabled=false
+					
 					$go_prompted.hide()
 			if !camera_in_boss_area:
 				if player.global_position.x>=1100:
@@ -247,8 +253,23 @@ func _on_back_pressed() -> void:
 func _on_revive_pressed() -> void:
 	get_tree().paused=false
 	player.reset_hp()
-	choice_panel.hide()
+	toggle_choice_panel()
 	player.show()
+
+func toggle_choice_panel():
+	if !choice_panel.visible:
+		choice_panel.show()
+		var tween = choice_panel.create_tween()
+		tween.parallel().tween_property(choice_panel,"modulate:a",1,0.5)
+		tween.parallel().tween_property(choice_panel,"scale",Vector2.ONE,0.2)
+	else:
+		var tween = choice_panel.create_tween()
+		tween.parallel().tween_property(choice_panel,"modulate:a",0,0.2)
+		tween.parallel().tween_property(choice_panel,"scale",Vector2.ONE*1.5,0.2)
+		tween.tween_callback(hide_choice_panel)
+
+func hide_choice_panel():
+	choice_panel.hide()
 
 func _on_die_pressed() -> void:
 	get_tree().paused=false

@@ -3,8 +3,8 @@ extends Control
 
 @onready var anim: AnimatedSprite2D = $AnimatedSprite2D
 
-#var file_path = "user://savedata.tres"
-var file_path = "res://savedata.tres"
+#var file_path = "user://game_save/savedata.tres"
+var file_path = "res://game_save/savedata.tres"
 
 func try_exit():
 	$exit_window.show()
@@ -63,13 +63,14 @@ func _ready() -> void:
 		g.save=false
 	anim.play("idle")
 	if g.sound_on:
-		$sound.text ="sound on"
+		$settings_menu/Panel/sound.text ="on"
 	else:
-		$sound.text ="sound off"
+		$settings_menu/Panel/sound.text ="off"
 	if g.music_on:
-		$music.text ="music on"
+		$settings_menu/Panel/music.text ="on"
 	else:
-		$music.text ="music off"
+		$settings_menu/Panel/music.text ="off"
+	$settings_menu.hide()
 
 func _on_inv_pressed() -> void:
 	g.last_scene="res://inventory.tscn"
@@ -133,13 +134,51 @@ func _on_upgrade_pressed() -> void:
 func _on_sound_pressed() -> void:
 	g.sound_on =!g.sound_on
 	if g.sound_on:
-		$sound.text ="sound on"
+		$settings_menu/Panel/sound.text ="on"
 	else:
-		$sound.text ="sound off"
+		$settings_menu/Panel/sound.text ="off"
 
 func _on_music_pressed() -> void:
 	g.music_on =!g.music_on
 	if g.music_on:
-		$music.text ="music on"
+		$settings_menu/Panel/music.text ="on"
 	else:
-		$music.text ="music off"
+		$settings_menu/Panel/music.text ="off"
+
+var settings_on = false
+
+func animate_button_pressed(but:Button):
+	var tween = create_tween()
+	tween.parallel().tween_property(but,"scale",Vector2.ONE*0.85,0.1)
+	if but==$settings:
+		if !settings_on:
+			tween.parallel().tween_property(but,"rotation_degrees",45,0.1)
+			settings_on=true
+		else:
+			tween.parallel().tween_property(but,"rotation_degrees",0,0.1)
+			settings_on=false
+
+func animate_button_released(but:Button):
+	var tween = create_tween()
+	tween.parallel().tween_property(but,"scale",Vector2.ONE,0.1)
+
+
+func _on_settings_button_up() -> void:
+	animate_button_released($settings)
+	if settings_on:
+		$settings_menu.show()
+	else:
+		$settings_menu.hide()
+
+
+func _on_settings_button_down() -> void:
+	animate_button_pressed($settings)
+
+
+func _on_quit_button_down() -> void:
+	animate_button_pressed($quit)
+
+
+func _on_quit_button_up() -> void:
+	animate_button_released($quit)
+	try_exit()

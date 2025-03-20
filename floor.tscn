@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://qveoiyii483u"]
+[gd_scene load_steps=19 format=4 uid="uid://qveoiyii483u"]
 
 [ext_resource type="Script" uid="uid://bvwoym3neavlh" path="res://floor.gd" id="1_oj3tl"]
 [ext_resource type="Texture2D" uid="uid://d3notefudchrx" path="res://assets/background/DarkForest1.2_2/env_ground.png" id="2_7j7qi"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bva0qhrguwavs" path="res://assets/background/DarkForest1.2_2/main_background.png" id="2_qn07e"]
 [ext_resource type="Script" uid="uid://cu8jsolm1skhq" path="res://camera_2d.gd" id="2_wd3ws"]
 [ext_resource type="Texture2D" uid="uid://cafwpuedl3c4c" path="res://assets/background/DarkForest1.2_2/bgrd_tree1.png" id="7_7j7qi"]
+[ext_resource type="Texture2D" uid="uid://blpyfpopynoij" path="res://assets/buttons/buttons/arrowRight.png" id="8_ce06e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oj3tl"]
 size = Vector2(41, 485)
@@ -1951,6 +1952,9 @@ texture = ExtResource("2_dgmes")
 [sub_resource type="TileSet" id="TileSet_v5cjn"]
 sources/0 = SubResource("TileSetAtlasSource_36s4f")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2jbdd"]
+texture = ExtResource("8_ce06e")
+
 [node name="Floor" type="Control"]
 process_mode = 1
 layout_mode = 3
@@ -2179,38 +2183,69 @@ process_mode = 3
 visible = false
 top_level = true
 z_index = 10
-offset_left = 329.0
-offset_top = 60.0
-offset_right = 740.0
-offset_bottom = 588.0
-metadata/_edit_group_ = true
+custom_minimum_size = Vector2(350, 400)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(175, 200)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Label" type="Label" parent="CanvasLayer2/choice_panel"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 51.0
-offset_right = 403.0
-offset_bottom = 206.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -196.5
+offset_top = -148.0
+offset_right = 195.5
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 48
 text = "You Died"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="revive" type="Button" parent="CanvasLayer2/choice_panel"]
-layout_mode = 0
-offset_left = 245.0
-offset_top = 327.0
-offset_right = 370.0
-offset_bottom = 380.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -148.0
+offset_top = -87.0
+offset_right = -23.0
+offset_bottom = -34.0
+grow_horizontal = 0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Revive"
 
-[node name="die" type="Button" parent="CanvasLayer2/choice_panel"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer2/choice_panel/revive"]
 layout_mode = 0
-offset_left = 62.0
-offset_top = 327.0
-offset_right = 162.0
-offset_bottom = 380.0
+offset_left = -24.145
+offset_top = -23.08
+offset_right = 15.855
+offset_bottom = 16.92
+
+[node name="die" type="Button" parent="CanvasLayer2/choice_panel"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 23.0
+offset_top = -83.0
+offset_right = 123.0
+offset_bottom = -30.0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "Die"
 
@@ -2218,14 +2253,12 @@ text = "Die"
 
 [node name="go_prompted" type="Label" parent="."]
 layout_mode = 0
-offset_left = 508.0
-offset_top = 278.0
-offset_right = 551.0
+offset_left = 958.0
+offset_top = 197.0
+offset_right = 1058.0
 offset_bottom = 301.0
 theme_override_font_sizes/font_size = 32
-text = "GO>>"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_styles/normal = SubResource("StyleBoxTexture_2jbdd")
 
 [connection signal="timeout" from="wave_cd" to="." method="_on_wave_cd_timeout"]
 [connection signal="pressed" from="CanvasLayer2/popup/menu" to="." method="_on_menu_pressed"]

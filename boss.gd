@@ -23,9 +23,9 @@ var attacking = false
 var bar = p_bar.instantiate()
 var z_index_options = [1]
 var hurt = false
-var hurt_duration = 1
+var hurt_duration = 0.5
 var speed = 100
-var atk_cd = 1.0
+var atk_cd = 1.6
 var boss_level : int
 var can_attack = false
 var facing_right = false
@@ -103,11 +103,6 @@ func _ready() -> void:
 	get_parent().add_child.call_deferred(audio) #bug
 	audio.process_mode=Node.PROCESS_MODE_ALWAYS
 	z_index=z_index_options.pick_random()
-	
-	#if g.sound_on:
-		#audio.stream_paused=false
-	#else:
-		#audio.stream_paused=true
 	if g.sound_on:
 		audio.stream=sound[4]
 		audio.play()
@@ -153,13 +148,7 @@ func _physics_process(delta: float) -> void:
 				velocity.x = 0
 				anim.play("idle")
 	else:
-		if can_hurt:
-			anim.play("hurt")
-			if once:
-				once = false
-				anim.animation_finished.connect(can_hurt_)
-		else:
-			anim.play("idle")
+		anim.play("hurt")
 			
 	
 	move_and_slide()

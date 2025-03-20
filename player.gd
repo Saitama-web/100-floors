@@ -87,8 +87,8 @@ func _ready() -> void:
 	$CanvasLayer/buttons/skill/TextureProgressBar.max_value = skill_cd
 	$CanvasLayer/buttons/burst/TextureProgressBar.max_value = burst_cd
 	$CanvasLayer/buttons/dash/TextureProgressBar.max_value = dash_cd
-	$CanvasLayer/buttons/attack/TextureProgressBar.max_value = 10.0
-	$CanvasLayer/buttons/attack/TextureProgressBar.value = 0
+	#$CanvasLayer/buttons/attack/TextureProgressBar.max_value = 10.0
+	#$CanvasLayer/buttons/attack/TextureProgressBar.value = 0
 	$CanvasLayer/buttons/skill/TextureProgressBar.value = 0
 	$CanvasLayer/buttons/burst/TextureProgressBar.value = 0
 	$CanvasLayer/buttons/dash/TextureProgressBar.value = 0
@@ -243,7 +243,7 @@ func _physics_process(delta: float) -> void:
 		var tween = get_tree().create_tween()
 		tween.tween_property(self,"velocity:x",0,0.5).set_ease(Tween.EASE_IN)
 		tween.tween_callback(set_push)
-	if !push:
+	else:
 		attack()
 		if !attacking:
 			movement()
@@ -251,6 +251,7 @@ func _physics_process(delta: float) -> void:
 	update_icon()
 	if !attacking and !moving:
 		anim.play("idle")
+	
 
 func defence_dmg_filter(dmg):
 	# Calculate damage reduction
@@ -269,11 +270,14 @@ func hit(raw_dmg):
 	if hp<=0:
 		if g.sound_on:
 			$AudioStreamPlayer2D.stream=sound[2]
+			$AudioStreamPlayer2D.volume_db = -1
+			
 			$AudioStreamPlayer2D.play()
 		handle_lost()
 	else:
 		if g.sound_on:
 			$AudioStreamPlayer2D.stream=sound[randi_range(0,1)]
+			$AudioStreamPlayer2D.volume_db = -1
 			$AudioStreamPlayer2D.play()
 	
 	var dmg_indicator = dmg_num.instantiate()
@@ -301,7 +305,7 @@ func reset_atk_timer():
 	can_burst=true
 
 func handle_lost():
-	get_parent().get_parent().choice_panel.show()
+	get_parent().get_parent().toggle_choice_panel()
 	hide()
 	get_tree().paused=true
 
@@ -334,22 +338,30 @@ func _on_dash_cd_timeout() -> void:
 
 func _on_attack_pressed() -> void:
 	Input.action_press("normal")
+	animate_tbutton_press($CanvasLayer/buttons/attack)
 	await get_tree().create_timer(0.1).timeout
+	animate_tbutton_rel($CanvasLayer/buttons/attack)
 	Input.action_release("normal")
 
 func _on_skill_pressed() -> void:
 	Input.action_press("skill")
+	animate_tbutton_press($CanvasLayer/buttons/skill)
 	await get_tree().create_timer(0.1).timeout
+	animate_tbutton_rel($CanvasLayer/buttons/skill)
 	Input.action_release("skill")
 
 func _on_burst_pressed() -> void:
 	Input.action_press("burst")
+	animate_tbutton_press($CanvasLayer/buttons/burst)
 	await get_tree().create_timer(0.1).timeout
+	animate_tbutton_rel($CanvasLayer/buttons/burst)
 	Input.action_release("burst")
 
 func _on_dash_pressed() -> void:
 	Input.action_press("dash")
+	animate_tbutton_press($CanvasLayer/buttons/dash)
 	await get_tree().create_timer(0.1).timeout
+	animate_tbutton_rel($CanvasLayer/buttons/dash)
 	Input.action_release("dash")
 
 var down = false
@@ -357,19 +369,40 @@ func _on_left_button_down() -> void:
 	if !down:
 		down = true
 		Input.action_press("left")
+		animate_button_press($CanvasLayer/buttons/left)
 
 func _on_left_button_up() -> void:
 	Input.action_release("left")
 	down=false
+	animate_button_rel($CanvasLayer/buttons/left)
 
 func _on_right_button_down() -> void:
 	if !down:
 		down = true
 		Input.action_press("right")
+		animate_button_press($CanvasLayer/buttons/right)
 
 func _on_right_button_up() -> void:
 	Input.action_release("right")
 	down=false
+	animate_button_rel($CanvasLayer/buttons/right)
 
 func _on_delay_timeout() -> void:
 	get_tree().paused=true
+
+func animate_button_press(button : Button):
+	var tween = get_tree().create_tween()
+	tween.tween_property(button,"scale",Vector2.ONE*0.85,0.1)
+
+func animate_button_rel(button : Button):
+	var tween = get_tree().create_tween()
+	tween.tween_property(button,"scale",Vector2.ONE,0.1)
+
+
+func animate_tbutton_press(button : TextureButton):
+	var tween = get_tree().create_tween()
+	tween.tween_property(button,"scale",Vector2.ONE*0.9,0.1)
+
+func animate_tbutton_rel(button : TextureButton):
+	var tween = get_tree().create_tween()
+	tween.tween_property(button,"scale",Vector2.ONE,0.1)

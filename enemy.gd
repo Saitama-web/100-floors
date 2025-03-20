@@ -25,7 +25,7 @@ var z_index_options = [1,-1]
 var hurt = false
 var hurt_duration = 0.5
 var speed = 100
-var atk_cd = 1.0
+var atk_cd = 1.6
 var level : int
 var can_attack = false
 var facing_right = false
@@ -71,10 +71,6 @@ func _ready() -> void:
 	get_parent().add_child(audio) #bug
 	audio.process_mode=Node.PROCESS_MODE_ALWAYS
 	z_index=z_index_options.pick_random()
-	#if g.sound_on:
-		#audio.stream_paused=false
-	#else:
-		#audio.stream_paused=true
 	if g.sound_on:
 		audio.stream=sound[4]
 		audio.play()
@@ -120,15 +116,7 @@ func _physics_process(delta: float) -> void:
 				velocity.x = 0
 				anim.play("idle")
 	else:
-		#if can_hurt:
 		anim.play("hurt")
-			#if once:
-				#once = false
-				#anim.animation_finished.connect(can_hurt_)
-		#else:
-			#anim.play("idle")
-			
-	
 	move_and_slide()
 
 var once = true
@@ -162,12 +150,14 @@ func hit(dmg):
 		dmg_indicator.reparent(get_parent().get_parent())
 		if g.sound_on:
 			audio.stream = sound[2]
+			audio.volume_db = -1
 			audio.play()
 		despawn()
 	else:
 		bar.value = hp
 		if g.sound_on:
 			audio.stream = sound[randi_range(0,1)]
+			audio.volume_db = -1
 			audio.play()
 
 func despawn():
